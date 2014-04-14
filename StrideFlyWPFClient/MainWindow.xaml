@@ -1,0 +1,22 @@
+﻿<Window x:Class="StrideFlyWPFClient.MainWindow"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"
+                Title="StrideFly Race Tracking" Width="564" Height="1054">
+        <Grid x:Name="LayoutRoot" Width="544" Height="1024">
+        <telerik:RadMap x:Name="RadMap1" 
+                        ZoomLevel="13" 
+                        MinZoomLevel="10" 
+                        MaxZoomLevel="14" 
+                        Center="37.27675, -112.8863"
+                        NavigationVisibility="Collapsed"
+                        ZoomBarVisibility="Collapsed"
+                        CommandBarVisibility="Collapsed"    
+                        MiniMapExpanderVisibility="Collapsed">
+            <telerik:RadMap.Provider>
+                <telerik:UriImageProvider GeoBoundsNW="37.3029, -112.9001" GeoBoundsSE="37.2507, -112.8724" Uri="RagnarZion2014v2.tif" />
+            </telerik:RadMap.Provider>
+        </telerik:RadMap>
+    </Grid>
+</Window>
