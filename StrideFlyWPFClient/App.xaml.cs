@@ -15,6 +15,7 @@ namespace StrideFlyWPFClient
         public App()
         {
            this.InitializeComponent();
+            
         }
     }
 }

@@ -3,20 +3,92 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                  HorizontalAlignment="Center" VerticalAlignment="Center"
-                Title="StrideFly Race Tracking" Width="564" Height="1054">
-        <Grid x:Name="LayoutRoot" Width="544" Height="1024">
-        <telerik:RadMap x:Name="RadMap1" 
-                        ZoomLevel="13" 
+                Title="StrideFly Race Tracking" Width="718" Height="1366" ResizeMode="NoResize">
+
+    <Grid x:Name="LayoutRoot"  Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        Grid.Row="0"
+                        Margin="0,5,0,5">
+            <Label Content="Serial Port:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            <ComboBox x:Name="comboPortName" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Width="88"/>
+            <telerik:RadButton Content="Open/Close Com Port"
+                               Click="OpenCloseComPort_Click"
+                               Width="150"
+                               Margin="5,0,5,0" Height="22" VerticalAlignment="Top" />
+            <Label Content="Trail Color:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            <ComboBox x:Name="TrailColorSelect" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Width="88" SelectedIndex="0">
+                <ComboBoxItem Name="tcGreen">Green</ComboBoxItem>
+                <ComboBoxItem Name="tcYellow">Yellow</ComboBoxItem>
+                <ComboBoxItem Name="tcRed">Red</ComboBoxItem>
+            </ComboBox>
+            <telerik:RadButton Content="Load Course"
+                               Click="LoadCourse_Click"
+                               Width="150"
+                               Margin="5,0,5,0"  VerticalAlignment="Top"  />
+        </StackPanel>
+
+        <telerik:RadMap x:Name="RadMap1"
+                        Grid.Row="1"
+                        ZoomLevel="16" 
                         MinZoomLevel="10" 
-                        MaxZoomLevel="14" 
-                        Center="37.27675, -112.8863"
+                        MaxZoomLevel="20" 
+                        Center="37.2768, -112.8862"
                         NavigationVisibility="Collapsed"
                         ZoomBarVisibility="Collapsed"
                         CommandBarVisibility="Collapsed"    
-                        MiniMapExpanderVisibility="Collapsed">
+                        MouseLocationIndicatorVisibility="Collapsed"
+                        MiniMapExpanderVisibility="Collapsed" Margin="0,10,0,50"
+                        DistanceUnit="Mile" GeoBounds="37.3029,-112.9001,1.5219151,3.6043055996"
+                        Opacity="1" Grid.RowSpan="2">
+
+
+        
+
             <telerik:RadMap.Provider>
-                <telerik:UriImageProvider GeoBoundsNW="37.3029, -112.9001" GeoBoundsSE="37.2507, -112.8724" Uri="RagnarZion2014v2.tif" />
+                <telerik:UriImageProvider GeoBounds="37.3029,-112.9001,1.5219151,3.6043055996" 
+                                          GeoBoundsNW="37.3029, -112.9001"
+                                          GeoBoundsSE="37.2507, -112.8724" Uri="RagnarZion2014v25Pct.png" />
             </telerik:RadMap.Provider>
+
+            <telerik:InformationLayer>
+                <telerik:MapPolyline x:Name="TrailRed" Points="37.3029,-112.9001 37.2507, -112.8724"
+                        Stroke="Red"
+                        StrokeThickness="4" />
+                <telerik:MapPolyline x:Name="TrailGreen" Points="37.3029,-112.9001 37.2507, -112.8724"
+                        Stroke="Green"
+                        StrokeThickness="3" />
+                <telerik:MapPolyline x:Name="TrailYellow" Points="37.3029,-112.9001 37.2507, -112.8724"
+                        Stroke="Yellow"
+                        StrokeThickness="3"
+                        StrokeDashArray="3 2"/>
+            </telerik:InformationLayer>
+
         </telerik:RadMap>
+        <StackPanel Orientation="Horizontal"
+                        Grid.Row="2"
+                        Margin="0,5,0,5">
+            <telerik:MapMouseLocationIndicator MapControl="{Binding ElementName=RadMap1}"
+                                         
+                                           LocationFormat="Number"
+                                           Margin="10,15,10,15"
+                                           HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+            <RichTextBox x:Name="textBoxLog" Margin="5,5,5,5" Width="491" Height="40">
+                <RichTextBox.Resources>
+                    <Style TargetType="{x:Type Paragraph}">
+                        <Setter Property="Margin" Value="0"/>
+                    </Style>
+                </RichTextBox.Resources>
+                <FlowDocument>
+                    <Paragraph></Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+        </StackPanel>
+
     </Grid>
 </Window>
