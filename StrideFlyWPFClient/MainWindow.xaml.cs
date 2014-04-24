@@ -28,11 +28,15 @@ namespace StrideFlyWPFClient
         {
             InitializeComponent();
 
+            this.SizeChanged += OnWindowSizeChanged;
+
             // Instantiate Xbee class
             xbeeClient = new XBee(textBoxLog);
 
             // initialize com ports
             comboPortName.ItemsSource = xbeeClient.initCOMPorts();
+
+           
 
             LoadDefaultTrails();
             
@@ -40,6 +44,8 @@ namespace StrideFlyWPFClient
 
         private void OpenCloseComPort_Click(object sender, RoutedEventArgs e)
         {
+          
+
             // Initialize the port; use default parameters for now
             if (comboPortName.SelectedItem == null)
             {
@@ -120,6 +126,19 @@ namespace StrideFlyWPFClient
             {
                 selTrail.Points.Add(loc);
             }           
+        }
+
+        private void StrideFly_GoodBye(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (this.ActualWidth > 1000)
+                RadMap1.ZoomLevel = 16;
+            else
+                RadMap1.ZoomLevel = 15;
         }
     }
 }
